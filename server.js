@@ -19,11 +19,7 @@ app.get("/notes", (req, res) => {
 })
 
 app.get("/api/notes", (req, res) => {
-  fs.readFile("db/db.json", "utf8", (err, data) => {
-    if(err) throw err;
-    const savedNote = JSON.stringify(data);
-    console.log(savedNote)
-  });
+  res.json(notes);
 });
 
 app.post("/api/notes", (req, res) => {
@@ -32,9 +28,11 @@ app.post("/api/notes", (req, res) => {
   const data = JSON.stringify(notes)
   fs.writeFile("db/db.json", data, (err) => {
     if(err) throw err;
-    // console.log(data)
+    res.json(data);
   })
 })
+
+
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
